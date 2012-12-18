@@ -1,0 +1,27 @@
+!!! 5
+%html
+  %head
+    %script{src: "http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"}
+  %body
+    :javascript
+      var getGist = function(id) {
+        $.getJSON('https://api.github.com/gists/' + id + '?callback=?', null, function (response) {
+          
+        }, 'jsonp');
+      }
+
+      $.getJSON('https://api.github.com/gists/4257908?callback=?', null, function(response) {
+         index = response.data.files['index.txt'].content.split("\n");
+
+         for (post in index) {
+           console.log(index[post]);
+           matches = index[post].match(/^(\d+) (.*?)$/);
+
+           post_id = matches[1];
+           post_title = matches[2];
+
+           console.log(post_id);
+           console.log(post_title);
+         }
+       }, 'jsonp');
+
